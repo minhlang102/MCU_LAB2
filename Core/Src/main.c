@@ -280,7 +280,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	if (count2 > 0) {
 		count2--;
 		if (count2 <= 0) {
-			update7SEG(index_led--);
+			update7SEG(index_led);
 			count2 = 25;
 		}
 	}
