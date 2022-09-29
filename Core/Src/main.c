@@ -64,14 +64,16 @@ int hour = 15, minute = 8, second = 55;
 
 const int MAX_LED_MATRIX = 8;
 int index_led_matrix = 0;
-uint8_t matrix_buffer [8] = {0x18 , 0x3C , 0x66 , 0x66 , 0x7E , 0x7E , 0x66 , 0x66 };
+uint8_t matrix_buffer[8] = {0x18 , 0x3C , 0x66 , 0x66 , 0x7E , 0x7E , 0x66 , 0x66};
 
 int timer0_counter = 0;
 int timer1_counter = 0;
+int timer2_counter = 0;
 int timer0_flag = 0;
 int timer1_flag = 0;
+int timer2_flag = 0;
 int TIMER_CYCLE = 10;
-int shift_count = 0;
+int shift_num = 1;
 
 void display7SEG(int8_t counter);
 void displayMatrix(int8_t index);
@@ -90,6 +92,11 @@ void setTimer1(int duration) {
 	timer1_flag	 = 0;
 }
 
+void setTimer2(int duration) {
+	timer2_counter = duration/TIMER_CYCLE;
+	timer2_flag	 = 0;
+}
+
 void timer_run() {
 	if (timer0_counter > 0) {
 		timer0_counter--;
@@ -98,6 +105,10 @@ void timer_run() {
 	if (timer1_counter > 0) {
 		timer1_counter--;
 		if (timer1_counter == 0) timer1_flag = 1;
+	}
+	if (timer2_counter > 0) {
+		timer2_counter--;
+		if (timer2_counter == 0) timer2_flag = 1;
 	}
 }
 /* USER CODE END 0 */
@@ -139,6 +150,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   setTimer0(1000);
   setTimer1(250);
+  setTimer2(2250);
   while (1)
   {
 	  if (timer0_flag == 1) {
@@ -155,17 +167,19 @@ int main(void)
 			  hour = 0;
 		  }
 		  updateClockBuffer();
-//		  updateMatrixBuffer();
 		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 		  setTimer0(1000);
+	  }
+	  if (timer2_flag == 1) {
+		  updateMatrixBuffer();
+		  setTimer2(2000);
 	  }
 	  if (timer1_flag == 1) {
 		  update7SEG(index_led);
 		  updateLEDMatrix(index_led_matrix);
 		  setTimer1(250);
 	  }
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -443,9 +457,8 @@ void updateClockBuffer() {
 }
 
 void updateMatrixBuffer() {
-	if (shift_count > 7) shift_count = 0;
-	for (int i=0; i<7; i++) {
-		matrix_buffer[i] = (matrix_buffer[i] << shift_count) | (matrix_buffer[i] >> (8-shift_count));
+	for (int i=0; i<8; i++) {
+		matrix_buffer[i] = (matrix_buffer[i] >> shift_num) | (matrix_buffer[i] << (8-shift_num));
 	}
 }
 /* USER CODE END 4 */
