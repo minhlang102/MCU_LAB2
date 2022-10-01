@@ -150,7 +150,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   setTimer0(1000);
   setTimer1(250);
-  setTimer2(2250);
+  setTimer2(2000);
   while (1)
   {
 	  if (timer0_flag == 1) {
