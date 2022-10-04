@@ -287,11 +287,11 @@ int main(void)
   setTimer0(1000);
  8000286:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  800028a:	f7ff ff5f 	bl	800014c <setTimer0>
-  setTimer1(250);
- 800028e:	20fa      	movs	r0, #250	; 0xfa
+  setTimer1(100);
+ 800028e:	2064      	movs	r0, #100	; 0x64
  8000290:	f7ff ff76 	bl	8000180 <setTimer1>
-  setTimer2(2250);
- 8000294:	f640 00ca 	movw	r0, #2250	; 0x8ca
+  setTimer2(800);
+ 8000294:	f44f 7048 	mov.w	r0, #800	; 0x320
  8000298:	f7ff ff8c 	bl	80001b4 <setTimer2>
   while (1)
   {
@@ -369,8 +369,8 @@ int main(void)
  800030e:	d105      	bne.n	800031c <main+0xb0>
 		  updateMatrixBuffer();
  8000310:	f000 fb00 	bl	8000914 <updateMatrixBuffer>
-		  setTimer2(2000);
- 8000314:	f44f 60fa 	mov.w	r0, #2000	; 0x7d0
+		  setTimer2(800);
+ 8000314:	f44f 7048 	mov.w	r0, #800	; 0x320
  8000318:	f7ff ff4c 	bl	80001b4 <setTimer2>
 	  }
 	  if (timer1_flag == 1) {
@@ -388,8 +388,8 @@ int main(void)
  8000330:	681b      	ldr	r3, [r3, #0]
  8000332:	4618      	mov	r0, r3
  8000334:	f000 f9e2 	bl	80006fc <updateLEDMatrix>
-		  setTimer1(250);
- 8000338:	20fa      	movs	r0, #250	; 0xfa
+		  setTimer1(100);
+ 8000338:	2064      	movs	r0, #100	; 0x64
  800033a:	f7ff ff21 	bl	8000180 <setTimer1>
 	  if (timer0_flag == 1) {
  800033e:	e7ad      	b.n	800029c <main+0x30>
@@ -537,9 +537,9 @@ static void MX_TIM2_Init(void)
  800040c:	4b19      	ldr	r3, [pc, #100]	; (8000474 <MX_TIM2_Init+0x94>)
  800040e:	2200      	movs	r2, #0
  8000410:	609a      	str	r2, [r3, #8]
-  htim2.Init.Period = 9;
+  htim2.Init.Period = 10;
  8000412:	4b18      	ldr	r3, [pc, #96]	; (8000474 <MX_TIM2_Init+0x94>)
- 8000414:	2209      	movs	r2, #9
+ 8000414:	220a      	movs	r2, #10
  8000416:	60da      	str	r2, [r3, #12]
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
  8000418:	4b16      	ldr	r3, [pc, #88]	; (8000474 <MX_TIM2_Init+0x94>)
