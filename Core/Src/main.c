@@ -68,11 +68,9 @@ uint8_t matrix_buffer[8] = {0x18 , 0x3C , 0x66 , 0x66 , 0x7E , 0x7E , 0x66 , 0x6
 
 int timer0_counter = 0;
 int timer1_counter = 0;
-int timer2_counter = 0;
 int timer0_flag = 0;
 int timer1_flag = 0;
-int timer2_flag = 0;
-int TIMER_CYCLE = 10;
+int TIMER_CYCLE = 50;
 int shift_num = 1;
 
 void display7SEG(int8_t counter);
@@ -92,11 +90,6 @@ void setTimer1(int duration) {
 	timer1_flag	 = 0;
 }
 
-void setTimer2(int duration) {
-	timer2_counter = duration/TIMER_CYCLE;
-	timer2_flag	 = 0;
-}
-
 void timer_run() {
 	if (timer0_counter > 0) {
 		timer0_counter--;
@@ -105,10 +98,6 @@ void timer_run() {
 	if (timer1_counter > 0) {
 		timer1_counter--;
 		if (timer1_counter == 0) timer1_flag = 1;
-	}
-	if (timer2_counter > 0) {
-		timer2_counter--;
-		if (timer2_counter == 0) timer2_flag = 1;
 	}
 }
 /* USER CODE END 0 */
@@ -150,9 +139,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   setTimer0(1000);
   setTimer1(250);
-  setTimer2(2000);
+  int tmp = 0;
   while (1)
   {
+	  //Clock
 	  if (timer0_flag == 1) {
 		  second++;
 		  if (second >= 60) {
@@ -171,14 +161,16 @@ int main(void)
 		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 		  setTimer0(1000);
 	  }
-	  if (timer2_flag == 1) {
-		  updateMatrixBuffer();
-		  setTimer2(2000);
-	  }
+	  //7Seg and Matrix
 	  if (timer1_flag == 1) {
 		  update7SEG(index_led);
 		  updateLEDMatrix(index_led_matrix);
 		  setTimer1(250);
+		  tmp+=250;
+	  }
+	  if (tmp == 2000) {
+		  updateMatrixBuffer();
+		  tmp = 0;
 	  }
     /* USER CODE END WHILE */
 
@@ -242,9 +234,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 7999;
+  htim2.Init.Prescaler = 3999;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 10;
+  htim2.Init.Period = 99;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
