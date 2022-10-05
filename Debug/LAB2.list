@@ -292,6 +292,7 @@ int main(void)
  8000294:	4826      	ldr	r0, [pc, #152]	; (8000330 <main+0xb0>)
  8000296:	f001 f9fd 	bl	8001694 <HAL_TIM_Base_Start_IT>
   /* USER CODE END 2 */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer0(1000);
@@ -527,9 +528,9 @@ static void MX_TIM2_Init(void)
  80003f4:	4b19      	ldr	r3, [pc, #100]	; (800045c <MX_TIM2_Init+0x94>)
  80003f6:	2200      	movs	r2, #0
  80003f8:	609a      	str	r2, [r3, #8]
-  htim2.Init.Period = 9;
+  htim2.Init.Period = 10;
  80003fa:	4b18      	ldr	r3, [pc, #96]	; (800045c <MX_TIM2_Init+0x94>)
- 80003fc:	2209      	movs	r2, #9
+ 80003fc:	220a      	movs	r2, #10
  80003fe:	60da      	str	r2, [r3, #12]
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
  8000400:	4b16      	ldr	r3, [pc, #88]	; (800045c <MX_TIM2_Init+0x94>)
