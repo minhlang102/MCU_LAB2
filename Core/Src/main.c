@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "display7SEG.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,22 +55,6 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t segmentArray[10] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6F}; //From 0 to 9
-
-void display7SEG(int8_t counter) {
-	if (counter<0 || counter>9) return;
-	for (int i=0; i<7; i++) {
-		HAL_GPIO_WritePin(SEG0_GPIO_Port, SEG0_Pin << i, !((segmentArray[counter]>>i)&0x1));
-	}
-}
-
-const int MAX_LED = 4;
-int index_led = 0;
-int led_buffer[4] = {1,2,3,4};
-int hour = 15, minute = 8, second = 50;
-
-void update7SEG(int index);
-void updateClockBuffer();
 /* USER CODE END 0 */
 
 /**
@@ -271,42 +255,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 			count2 = 25;
 		}
 	}
-}
-void update7SEG(int index) {
-	switch (index) {
-		case 0:
-			HAL_GPIO_WritePin(GPIOA, EN0_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOA, EN1_Pin | EN2_Pin | EN3_Pin, GPIO_PIN_SET);
-			display7SEG(led_buffer[index]);
-			index_led = 1;
-			break;
-		case 1:
-			HAL_GPIO_WritePin(GPIOA, EN1_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN2_Pin | EN3_Pin, GPIO_PIN_SET);
-			display7SEG(led_buffer[index]);
-			index_led = 2;
-			break;
-		case 2:
-			HAL_GPIO_WritePin(GPIOA, EN2_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN1_Pin | EN3_Pin, GPIO_PIN_SET);
-			display7SEG(led_buffer[index]);
-			index_led = 3;
-			break;
-		case 3:
-			HAL_GPIO_WritePin(GPIOA, EN3_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN1_Pin | EN2_Pin, GPIO_PIN_SET);
-			display7SEG(led_buffer[index]);
-			index_led = 0;
-			break;
-		default:
-			break;
-	}
-}
-void updateClockBuffer() {
-	led_buffer[0] = (int) (hour/10);
-	led_buffer[1] = (int) (hour%10);
-	led_buffer[2] = (int) (minute/10);
-	led_buffer[3] = (int) (minute%10);
 }
 /* USER CODE END 4 */
 
