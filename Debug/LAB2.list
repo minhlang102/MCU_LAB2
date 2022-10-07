@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  00020020  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00007e32  00000000  00000000  00020049  2**0
+ 12 .debug_info   00007fc7  00000000  00000000  00020049  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000014e5  00000000  00000000  00027e7b  2**0
+ 13 .debug_abbrev 00001602  00000000  00000000  00028010  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000938  00000000  00000000  00029360  2**3
+ 14 .debug_aranges 00000950  00000000  00000000  00029618  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000890  00000000  00000000  00029c98  2**3
+ 15 .debug_ranges 00000898  00000000  00000000  00029f68  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00016200  00000000  00000000  0002a528  2**0
+ 16 .debug_macro  000163bf  00000000  00000000  0002a800  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00009220  00000000  00000000  00040728  2**0
+ 17 .debug_line   0000987d  00000000  00000000  00040bbf  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00081bbc  00000000  00000000  00049948  2**0
+ 18 .debug_str    00081bea  00000000  00000000  0004a43c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000cb504  2**0
+ 19 .comment      00000050  00000000  00000000  000cc026  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000025f0  00000000  00000000  000cb554  2**2
+ 20 .debug_frame  00002600  00000000  00000000  000cc078  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -77,10 +77,10 @@ Disassembly of section .text:
  8000148:	08001bcc 	.word	0x08001bcc
 
 0800014c <display7SEG>:
-/* USER CODE END PFP */
+ */
 
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
+#include "display7SEG.h"
+
 uint8_t segmentArray[10] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6F}; //From 0 to 9
 void display7SEG(int8_t counter) {
  800014c:	b580      	push	{r7, lr}
