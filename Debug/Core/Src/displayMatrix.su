@@ -1,0 +1,3 @@
+../Core/Src/displayMatrix.c:15:6:displayMatrix	24	static
+../Core/Src/displayMatrix.c:21:6:updateLEDMatrix	16	static
+../Core/Src/displayMatrix.c:100:6:updateMatrixBuffer	16	static
