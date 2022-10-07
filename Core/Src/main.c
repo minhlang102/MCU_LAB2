@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "display7SEG.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,14 +55,7 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t segmentArray[10] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6F}; //From 0 to 9
 
-void display7SEG(int8_t counter) {
-	if (counter<0 || counter>9) return;
-	for (int i=0; i<7; i++) {
-		HAL_GPIO_WritePin(SEG0_GPIO_Port, SEG0_Pin << i, !((segmentArray[counter]>>i)&0x1));
-	}
-}
 /* USER CODE END 0 */
 
 /**
