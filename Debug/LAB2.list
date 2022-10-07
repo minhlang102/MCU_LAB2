@@ -903,11 +903,11 @@ void timer_run() {
  8000654:	3b01      	subs	r3, #1
  8000656:	4a06      	ldr	r2, [pc, #24]	; (8000670 <timer_run+0x2c>)
  8000658:	6013      	str	r3, [r2, #0]
-		if (timer0_counter == 0) timer0_flag = 1;
+		if (timer0_counter <= 0) timer0_flag = 1;
  800065a:	4b05      	ldr	r3, [pc, #20]	; (8000670 <timer_run+0x2c>)
  800065c:	681b      	ldr	r3, [r3, #0]
  800065e:	2b00      	cmp	r3, #0
- 8000660:	d102      	bne.n	8000668 <timer_run+0x24>
+ 8000660:	dc02      	bgt.n	8000668 <timer_run+0x24>
  8000662:	4b04      	ldr	r3, [pc, #16]	; (8000674 <timer_run+0x30>)
  8000664:	2201      	movs	r2, #1
  8000666:	601a      	str	r2, [r3, #0]

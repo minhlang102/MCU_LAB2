@@ -19,6 +19,6 @@ void setTimer0(int duration) {
 void timer_run() {
 	if (timer0_counter > 0) {
 		timer0_counter--;
-		if (timer0_counter == 0) timer0_flag = 1;
+		if (timer0_counter <= 0) timer0_flag = 1;
 	}
 }
