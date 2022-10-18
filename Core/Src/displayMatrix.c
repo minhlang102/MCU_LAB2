@@ -20,6 +20,7 @@ void displayMatrix(int8_t index) {
 
 void updateLEDMatrix(int index) {
 	switch (index) {
+		//enable and display 1th column to 8th column
 		case 0:
 			HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM0_Pin, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(ENM0_GPIO_Port, ENM1_Pin | ENM2_Pin |
